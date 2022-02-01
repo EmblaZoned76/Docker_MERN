@@ -1,0 +1,17 @@
+FROM node:14-alpine3.10
+
+LABEL version="1.0"
+LABEL description="Development image"
+
+WORKDIR /app
+COPY ["package.json","package-lock.json*","npm-shrinkwrap.json*", "./"]
+
+RUN npm install && npm cache clean --force
+
+# Copy entire repertory
+COPY . .
+
+# Open port 5000
+EXPOSE 5000
+
+CMD [ "npm", "run","dev" ]
