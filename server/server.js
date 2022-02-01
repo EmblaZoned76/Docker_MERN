@@ -3,6 +3,7 @@ const express = require("express");
 const connectToDB = require("./database/db");
 const ErrorsMiddleware = require("./middleware/errorMiddleware");
 const LibraryError = require("./utils/libraryError");
+const bookRouter = require('./routes/bookRoutes');
 
 process.on("uncaughtException", (error) => {
     console.log("Uncaught Exception, stopping the server");
@@ -22,6 +23,8 @@ app.get("/", (req,res) => {
         "Hello World" : "Welcome"
     });
 });
+
+app.use("/api/v1/", bookRouter);
 
 // Error middleware
 app.all("*", (req,res, next) => {

@@ -17,7 +17,7 @@ services:
       - mongodb
     environment:
       NODE_ENV: ${NODE_ENV}
-      MONGO_URI: mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongodb
+      MONGO_URI: mongodb+srv://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@cluster0.5vcc5.mongodb.net/${DB_NAME}
     networks:
       - app_api
 
