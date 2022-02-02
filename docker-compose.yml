@@ -1,6 +1,5 @@
 version: '3.9'
 
-
 services:
   library-apy:
     restart: always
@@ -11,8 +10,8 @@ services:
     volumes: 
       - /app/node_modules
       - ./server:/app
-    ports:
-      - 5000:5000
+    # ports:
+    #   - 5000:5000
     depends_on:
       - mongodb
     environment:
@@ -50,6 +49,36 @@ services:
       - mongodb-data
     networks:
       - app_api
+  
+  client:
+    restart: always
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev 
+    container_name: library_frontend
+    volumes:
+      - ./app/node_modules
+      - ./client:/app 
+    # ports: 
+    #   - 3000:3000
+    depends_on: 
+      - library-apy
+    networks: 
+      - app_api
+      
+  nginx: 
+    restart: always
+    depends_on: 
+      - client
+      - library-apy
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports: 
+      - 8080:80
+    networks:
+      - app_api
+
 
 networks:
   app_api:

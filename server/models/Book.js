@@ -14,6 +14,10 @@ const BookSchema = new mongoose.Schema(
         published:{
             type: Boolean, default:false
         },
+        description:{
+            type: String,
+            required:true,
+        },
         subtitle:{
             type:String,
             required:[true],
